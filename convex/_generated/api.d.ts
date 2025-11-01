@@ -11,6 +11,7 @@
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as user from "../user.js";
+import type * as workspace from "../workspace.js";
 
 import type {
   ApiFromModules,
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
   user: typeof user;
+  workspace: typeof workspace;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 

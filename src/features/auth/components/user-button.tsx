@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useCurrentUser } from "../hooks/user-current-user";
+import { useCurrentUser } from "../api/user-current-user";
 import { useAuthActions } from "@convex-dev/auth/react";
 
 import { Loader, LogOut } from "lucide-react";
