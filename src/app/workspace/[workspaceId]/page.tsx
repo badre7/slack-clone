@@ -1,11 +1,16 @@
 // src/app/workspace/[workspaceId]/page.tsx
-import { use } from "react";
+"use client";
 
-export default function Page({
-  params,
-}: {
-  params: Promise<{ workspaceId: string }>;
-}) {
-  const { workspaceId } = use(params);
-  return <div>ID: {workspaceId}</div>;
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
+
+export default function Page() {
+  const workspaceId = useWorkspaceId();
+  const { data } = useGetWorkspace({ id: workspaceId });
+
+  return (
+  <div>
+    Data: {JSON.stringify(data)}
+  </div>
+     );
 }
