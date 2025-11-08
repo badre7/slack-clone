@@ -1,16 +1,14 @@
+// use-get-workspace.ts
 import { useQuery } from "convex/react";
- 
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 
-interface useGetWorkspaceProps {
-    id: Id<"workspaces">;
+interface UseGetWorkspaceProps {
+  id: Id<"workspaces">;
+}
+
+export const useGetWorkspace = ({ id }: UseGetWorkspaceProps) => {
+  const data = useQuery(api.workspace.getById, { id });
+  const isLoading = data === undefined; // undefined = loading, null = niet gevonden
+  return { data, isLoading };
 };
-
-export const useGetWorkspace = ({ id }: useGetWorkspaceProps) => {
-const data = useQuery(api.workspace.get);
-const isLoading = data === undefined;
-
-return {data, isLoading};
-
-};      
