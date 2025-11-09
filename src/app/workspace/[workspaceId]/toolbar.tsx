@@ -17,7 +17,7 @@ export const Toolbar = () => {
         >
           <Search className="size-4 text-white mr-2" />
           <span className="text-white text-xs">
-            {` ${workspace?.name ?? "workspace"}`}
+            {`Search ${workspace?.name ?? "workspace"}`}
           </span>
         </Button>
       </div>
