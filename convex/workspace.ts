@@ -12,6 +12,36 @@ const generatecode = () => {
   return code;
 };
 
+export const newJoinCode = mutation({
+  args: {
+    workspaceId: v.id("workspaces"),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+    const member = await ctx.db
+      .query("members")
+      .withIndex("by_workspace_id_user_id", (q) =>
+        q.eq("workspaceId", args.workspaceId).eq("userId", userId)
+      )
+      .unique();
+
+    if (!member || member.role !== "admin") {
+      throw new Error("Unauthorized");
+    }
+
+    const joinCode = generatecode();
+
+    await ctx.db.patch(args.workspaceId, {
+      joinCode,
+    });
+
+    return args.workspaceId;
+  },
+});
+
 export const create = mutation({
   args: { name: v.string() },
   handler: async (ctx, { name }) => {
@@ -155,11 +185,11 @@ export const remove = mutation({
     ]);
 
     for (const member of members) {
-      await ctx.db.delete(member._id)
+      await ctx.db.delete(member._id);
     }
 
     await ctx.db.delete(args.id);
-  
+
     return args.id;
   },
 });
