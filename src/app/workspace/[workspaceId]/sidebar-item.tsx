@@ -12,32 +12,32 @@ const sidebarItemVariants = cva(
   {
     variants: {
       variant: {
-        default: "text[#f9edffcc]",
+        default: "text-[#f9edffcc]",
         active: "text-[#481349] bg-white/90 hover:bg-white/90",
       },
     },
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );
 
-interface SidebarItemProps {
+interface SidebarItemProps extends VariantProps<typeof sidebarItemVariants> {
   label: string;
   id: string;
   icon: LucideIcon | IconType;
 }
 
-export const SidebarItem = ({ label, id, icon: Icon }: SidebarItemProps) => {
+export const SidebarItem = ({ label, id, icon: Icon, variant }: SidebarItemProps) => {
   const workspaceId = useWorkspaceId();
 
-  
   return (
     <Button
       variant="transparent"
       size="sm"
       className={cn(
-        "w-full justify-start px-3 py-2 text-white hover:bg-[#703c70]",
+        "w-full justify-start px-3 py-2",
+        sidebarItemVariants({ variant }),
       )}
       asChild
     >

@@ -6,6 +6,7 @@ import { useGetChannels } from "@/features/channels/api/use-get-channels";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
 
+import { useChannelId } from "@/hooks/use-channel-id";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
 import { WorkspaceHeader } from "./workspace-header";
@@ -14,6 +15,7 @@ import { WorkspaceSection } from "./workspace-section";
 import { UserItem } from "./user-item";
 
 export const WorkspaceSidebar = () => {
+  const channelId = useChannelId();
   const workspaceId = useWorkspaceId();
 
   const [_open, setOpen] = useCreateChannelModal();
@@ -42,52 +44,78 @@ export const WorkspaceSidebar = () => {
       </div>
     );
   }
+{channels?.map((item) => {
+  console.log("channelId:", channelId);
+  console.log("item id:", item._id);
 
   return (
-    <div className="flex flex-col bg-[#5E2C5F] h-full ">
-      <WorkspaceHeader workspace={workspace} isAdmin={member.role === "admin"} />
-      <div className="flex flex-col px-2 mt-3">
-        <SidebarItem
+    <SidebarItem
+      key={item._id}
+      icon={HashIcon}
+      label={item.name}
+      id={item._id}
+      variant={channelId === item._id ? "active" : "default"}
+    />
+  );
+})}
+
+
+  
+ return (
+  <div className="flex flex-col bg-[#5E2C5F] h-full ">
+    <WorkspaceHeader workspace={workspace} isAdmin={member.role === "admin"} />
+    <div className="flex flex-col px-2 mt-3">
+      <SidebarItem
         label="Threads"
         icon={MessageSquareText}
         id="threads"
-        />
-         <SidebarItem
+      />
+      <SidebarItem
         label="Drafts & Sent"
         icon={SendHorizontal}
         id="drafts"
-        />
-        </div>
-        <WorkspaceSection
-        label="Channels"
-        hint="New Channel"
-        onNew={member.role === "admin" ? () => setOpen(true) : undefined}
-        >
-          <div className="flex flex-col">
-        {channels?.map((item) => (
-          <SidebarItem
-          key={item._id}
-          icon={HashIcon}
-          label={item.name}
-          id={item._id}
-          />
-        ))}
-        </div>
-        </WorkspaceSection>
-         <WorkspaceSection
-        label="Direct messages"
-        hint="New direct message"
-        onNew={() => {}}
-        >
-        {members?.map((item) => (
-         <UserItem
-         key={item._id}
-         id={item._id}
-         label={item.user.name}
-         image={item.user.image} />
-        ))}
-       </WorkspaceSection>
+      />
     </div>
-  ); 
+
+    <WorkspaceSection
+      label="Channels"
+      hint="New Channel"
+      onNew={member.role === "admin" ? () => setOpen(true) : undefined}
+    >
+      <div className="flex flex-col">
+        {channels?.map((item) => {
+          console.log("channelId:", channelId);
+          console.log("item id:", item._id);
+
+          return (
+            <SidebarItem
+              key={item._id}
+              icon={HashIcon}
+              label={item.name}
+              id={item._id}
+              variant={channelId === item._id ? "active" : "default"}
+            />
+          );
+        })}
+      </div>
+    </WorkspaceSection>
+
+    <WorkspaceSection
+      label="Direct messages"
+      hint="New direct message"
+      onNew={() => {}}
+    >
+      {members?.map((item) => (
+        <UserItem
+          key={item._id}
+          id={item._id}
+          label={item.user.name}
+          image={item.user.image}
+        />
+      ))}
+    </WorkspaceSection>
+  </div>
+);
+
 }
  
