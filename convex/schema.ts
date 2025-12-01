@@ -26,7 +26,7 @@ const schema = defineSchema({
     body: v.string(),
     image: v.optional(v.id("_storage")),
     memberId: v.id("members"),
-    workspacId: v.id("workspaces"),
+    workspaceId: v.id("workspaces"),
     channelId: v.optional(v.id("channels")),
     parentMessageId: v.optional(v.id("messages")),
     // TODO: add conversationId

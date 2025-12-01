@@ -39,6 +39,8 @@ export const create = mutation({
       throw new Error("unauthorized");
     }
 
+    // TODO: Handle conversationId
+
     const data = await ctx.db.insert("messages", {
         memberId: member._id,
         body: args.body,
@@ -46,6 +48,8 @@ export const create = mutation({
         channelId: args.channelId,
         workspaceId: args.workspaceId,
         parentMessageId: args.parentMessageId,
-    })
+        updatedAt: Date.now(),
+    });
+
   },
 });
