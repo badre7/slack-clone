@@ -1,5 +1,6 @@
 import { GetMessagesReturnType } from "@/features/messages/api/use-get-messages";
 import { format, isToday, isYesterday } from "date-fns";
+import { Message } from "./message";
 
 interface MessageListProps {
   memberName?: string;
