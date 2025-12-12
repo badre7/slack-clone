@@ -106,9 +106,9 @@ const { parentMessageId, onOpenMessage, onClose } = usePanel();
         onSuccess: () => {
           toast.success("Message deleted");
 
-          if (parentMessageId === id) {
-            onClose();
-          }
+          // if (parentMessageId === id) {
+          //   onClose();
+          // }
 
         },
         onError: () => {
