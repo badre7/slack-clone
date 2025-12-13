@@ -1,7 +1,8 @@
 import { v } from "convex/values";
 
-import { query } from "./_generated/server";
+import { query, QueryCtx } from "./_generated/server";
 import { getAuthSessionId, getAuthUserId } from "@convex-dev/auth/server";
+import { Id } from "./_generated/dataModel";
 
 const populateUser = (ctx: QueryCtx, id: Id<"users">) => {
   return ctx.db.get(id);
