@@ -9,7 +9,7 @@ type RequestType = {
   memberId: Id<"members">,
 };
 
-type ResponseType = Id<"messages"> | null;
+type ResponseType = Id<"conversations"> | null;
 
 type Options = {
   onSuccess?: (data: ResponseType) => void;
