@@ -78,6 +78,11 @@ export const Thread = ({ messageId, onClose }: ThreadProps) => {
       setIsPending(true);
       editorRef?.current?.enable(false);
 
+      if (!channelId || !workspaceId) {
+  toast.error("Channel/workspace not ready yet");
+  return;
+}
+
       const values: CreateMessageValues = {
         channelId,
         workspaceId,
