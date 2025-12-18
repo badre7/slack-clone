@@ -16,7 +16,7 @@ interface ChatInputProps {
 }
 
 type CreateMessageValues = {
-  channelId?: Id<"channels">;
+  channelId: Id<"channels">;
   workspaceId: Id<"workspaces">;
   body: string;
   image: Id<"_storage"> | undefined;
@@ -41,6 +41,11 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
     body: string;
     image: File | null;
   }) => {
+  if (!channelId || !workspaceId) {
+    toast.error("Channel/workspace not ready yet");
+    return;
+  }
+
     try {
       setIsPending(true);
       editorRef?.current?.enable(false);

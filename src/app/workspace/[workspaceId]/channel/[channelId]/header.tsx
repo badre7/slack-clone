@@ -63,10 +63,16 @@ if (member?.role !== "admin") return;
 
     if (!ok) return;
 
+    if (!channelId) {
+  toast.error("No channel selected");
+  return;
+}
+
+
     removeChannel(
       { id: channelId },
       {
-        onSucces: () => {
+        onSuccess: () => {
           toast.success("channel deleted");
           router.push(`/workspace/${workspaceId}`);
         },
@@ -80,10 +86,15 @@ if (member?.role !== "admin") return;
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+      if (!channelId) {
+    toast.error("No channel selected");
+    return;
+  }
+
     updateChannel(
       { id: channelId, name: value },
       {
-        onSucces: () => {
+        onSuccess: () => {
           toast.success("Channel updated");
           setEditOpen(false);
         },
