@@ -14,15 +14,25 @@ interface ConversationProps {
 
 export const Conversation = ({ id }: ConversationProps) => {
   const memberId = useMemberId();
+  const { onOpenProfile } = usePanel();
 
-  const {onOpenProfile} = usePanel();
+  if (!memberId) return null; // of loader
 
-  const { data: member, isLoading: memberLoading } = useGetMember({
-    id: memberId,
-  });
-  const { results, status, loadMore } = useGetMessages({
-    conversationId: id,
-  });
+  return <ConversationInner id={id} memberId={memberId} onOpenProfile={onOpenProfile} />;
+};
+
+function ConversationInner({
+  id,
+  memberId,
+  onOpenProfile,
+}: {
+  id: Id<"conversations">;
+  memberId: Id<"members">;
+  onOpenProfile: (memberId: string) => void;
+}) {
+  const { data: member, isLoading: memberLoading } = useGetMember({ id: memberId });
+
+  const { results, status, loadMore } = useGetMessages({ conversationId: id });
 
   if (memberLoading || status === "LoadingFirstPage") {
     return (

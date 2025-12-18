@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import Quill from "quill";
-import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 import { useCreateMessage } from "@/features/messages/api/use-create-message";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { useChannelId } from "@/hooks/use-channel-id";
@@ -82,7 +81,7 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
       await createMessage(values, { throwError: true });
 
       setEditorKey((prevKey) => prevKey + 1);
-    } catch (error) {
+    } catch {
       toast.error("Failed to send message");
     } finally {
       setIsPending(false);

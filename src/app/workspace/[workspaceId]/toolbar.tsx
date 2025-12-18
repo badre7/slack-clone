@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Info, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -10,7 +9,6 @@ import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { Button } from "@/components/ui/button";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import {
-  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -18,7 +16,6 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command"
 
 export const Toolbar = () => {
@@ -47,7 +44,7 @@ export const Toolbar = () => {
   return (
     <nav className="bg-[#481349] flex items-center justify-between h-10 p-1.5">
       <div className="flex-1" />
-      <div className="min-w-[280px] max-[642px] grow-[2] shrink">
+      <div className="min-w-[280px] max-[642px] grow-2 shrink">
         <Button
           onClick={() => setOpen(true)}
           size="sm"
