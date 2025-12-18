@@ -24,7 +24,7 @@ const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
 interface MessageProps {
   id: Id<"messages">;
-  memberId: Id<"member">;
+  memberId: Id<"members">;
   authorImage?: string;
   authorName?: string;
   isAuthor: boolean;
