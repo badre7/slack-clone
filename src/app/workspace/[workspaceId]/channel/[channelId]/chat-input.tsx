@@ -35,12 +35,18 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
   const { mutate: createMessage } = useCreateMessage();
 
   const handleSubmit = async ({
+    
     body,
     image,
   }: {
     body: string;
     image: File | null;
   }) => {
+if (!channelId || !workspaceId) {
+    toast.error("Channel/workspace not ready yet");
+    return;
+  }
+
     try {
       setIsPending(true);
       editorRef?.current?.enable(false);
